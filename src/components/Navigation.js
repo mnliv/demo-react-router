@@ -1,25 +1,19 @@
 import React, { useState } from 'react';
+
 import 'bootstrap/dist/css/bootstrap.min.css';
+
 import {
   Collapse,
   Navbar,
   NavbarToggler,
-  NavbarBrand,
   Nav,
   NavItem,
-  NavLink,
-  UncontrolledDropdown,
-  DropdownToggle,
-  DropdownMenu,
-  DropdownItem,
-  NavbarText
+
 } from 'reactstrap';
 import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
     Link
   } from "react-router-dom";
+import { CartContext } from '../contexts/Cart'  
 
 const Navigation = (props) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,10 +28,12 @@ const Navigation = (props) => {
         <Collapse isOpen={isOpen} navbar>
           <Nav className="mr-auto" navbar>
             <NavItem>
-              <Link className="nav-link" to="/about">About</Link>
+              <Link className="nav-link" to="/products">Products</Link>
             </NavItem>
             <NavItem>
-              <Link className="nav-link" to="/contact">Contact</Link>
+              <CartContext.Consumer>
+                {({cartItems}) => <Link className="nav-link" to="/cart">Cart ({cartItems.length})</Link> }
+              </CartContext.Consumer>
             </NavItem>
           </Nav>
         </Collapse>

@@ -1,53 +1,43 @@
 import React from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import {
   BrowserRouter as Router,
   Switch,
   Route,
-  Link
 } from "react-router-dom";
 
-import Navigation from './components/Navigation'
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
+import Navigation from './components/Navigation'
+import Products from './page/Products'
+import { CartProvider } from './contexts/Cart'
 
+
+class App extends React.Component {
   render() {
     return(
-      <Router>
-         <div className="App">
-          <Navigation></Navigation>
-          
-          <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/contact">
-            <Contact />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-        </div>
-      </Router>
+      <CartProvider>
+        <Router>
+            <div className="App">
+              <Navigation></Navigation>
+              
+              <Switch>
+              <Route path="/products">
+                <Products />
+              </Route>
+              <Route path="/">
+                <Home />
+              </Route>
+            </Switch>
+          </div>
+        </Router>
+      </CartProvider>
     )
   }
 }
 
 function Home() {
   return <h2>Home</h2>;
-}
-
-function About() {
-  return <h2>About</h2>;
-}
-
-function Contact() {
-  return <h2>Contact</h2>;
 }
 
 export default App;
